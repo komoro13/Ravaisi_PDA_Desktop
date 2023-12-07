@@ -32,7 +32,7 @@ namespace RavaisiDesktop
         private void Form1_Load(object sender, EventArgs e)
         {
             openOrdersRdBtn.PerformClick();
-            ipLabel.Text = "Machine IP: " + Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+            ipLabel.Text = "Machine IP Address: " + Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
             this.lastIndex = 0;
             Task.Run(() => checkForChanges());
             //initializePrinter();
