@@ -189,6 +189,7 @@ namespace RavaisiDesktop
             ordersGridView.Columns["loaded"].Visible = false;
             ordersGridView.Columns["price"].Visible = false;
 
+
             foreach (DataGridViewRow row in ordersGridView.Rows)
             {
                 if (row.Cells["id"].Value == null)

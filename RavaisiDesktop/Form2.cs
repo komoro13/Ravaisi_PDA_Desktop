@@ -17,7 +17,6 @@ namespace RavaisiDesktop
         string orderId;
         string orderString;
         string price;
-        string orderIndex;
         string orderTable;
         public string dbconnect = "server=127.0.0.1; User=root; password=;database=ravaisi";
         Font font = new Font(FontFamily.GenericMonospace, 15);

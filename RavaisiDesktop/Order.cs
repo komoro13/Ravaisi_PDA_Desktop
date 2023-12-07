@@ -140,7 +140,7 @@ namespace RavaisiDesktop
         
         int getOrderStrings()
         {
-            this.orderStrings.Clear();
+            orderStrings.Clear();
             String sql_command = "SELECT * FROM orders WHERE closed=0 AND order_table=" + "'" + this.table + "'" + "ORDER BY order_index DESC";
             MySqlConnection connect = new MySqlConnection();
             connect.ConnectionString = this.dbconnect;
@@ -152,7 +152,7 @@ namespace RavaisiDesktop
             DataRow[] rows = dt.AsEnumerable().ToArray(); 
             foreach (DataRow row in rows)
             {
-                this.orderStrings.Add(row["order_string"].ToString() + "#" + row["order_index"]);
+                orderStrings.Add(row["order_string"].ToString() + "#" + row["order_index"]);
             }
             return rows.Length;
         }
@@ -198,6 +198,7 @@ namespace RavaisiDesktop
             }
 
         }
+        
         public String getOrderString(ArrayList ord)
         {
             double price;
@@ -254,6 +255,8 @@ namespace RavaisiDesktop
             }
             return order1;
         }
+       
+      
         public void Show()
         {
             setOrderAsLoaded(true);
@@ -266,6 +269,7 @@ namespace RavaisiDesktop
             {   
                 this.orderForm1.addOrderTab(getOrderString(getAddedOrder(orderSt)), "Παραγγελια: " + orderSt.Split('#')[1]);
             }
+
 
         }
 
@@ -340,6 +344,8 @@ namespace RavaisiDesktop
             return;
 
         }
+
+
 
         public void preview(String tab)
         {
