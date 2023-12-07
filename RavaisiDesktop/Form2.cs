@@ -17,6 +17,7 @@ namespace RavaisiDesktop
         string orderId;
         string orderString;
         string price;
+        string orderIndex;
         string orderTable;
         public string dbconnect = "server=127.0.0.1; User=root; password=;database=ravaisi";
         Font font = new Font(FontFamily.GenericMonospace, 15);
@@ -77,8 +78,8 @@ namespace RavaisiDesktop
         {
             Order order = new Order(this.orderString, this.price, this.orderId);
             order.closeOrder();
-            MessageBox.Show("Το τραπεζι " + this.orderTable + "ειναι ελεθερο");
-            
+            MessageBox.Show("Το τραπέζι " + this.orderTable + "ειναι ελεύθερο");
+       
             Close();
         }
        
@@ -98,7 +99,7 @@ namespace RavaisiDesktop
             }
             order.preview(ordersTabsControl.SelectedIndex.ToString());
         }
-
+        
         private void thermalPrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             int charactersOnPage;
