@@ -96,6 +96,7 @@ namespace RavaisiDesktop
                 }
                 return str;
             }
+            
             public String GetStringForThermal()
             {
                 String result;
