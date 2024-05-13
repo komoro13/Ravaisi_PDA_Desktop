@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -13,28 +16,41 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Paddings;
 using PrinterUtility;
 namespace RavaisiDesktop
 {
-    public partial class Form1 : Form
+    public partial class TablesForm : Form
     {
-        public Form1()
+        public TablesForm()
         {
             InitializeComponent();
         }
-       public string dbconnect = "server=127.0.0.1; User=root; password=;database=ravaisi";
+        public string dbconnect = "server=127.0.0.1; User=root; password=;database=ravaisi";
         private int lastIndex;
         private int openRowsCount;
-        private String sql_cmd = "SELECT * FROM orders WHERE closed=0 AND order_index=1";
+        private String OPEN_ORDERS_SQL_CMD = "SELECT * FROM orders WHERE closed=0 AND order_index=1";
+        private String NEW_ORDERS_SQL_CMD = "SELECT * FROM orders WHERE closed=0 AND loaded=0";
+        private String ALL_ORDERS_SQL_CMD = "SELECT * FROM orders";
+        private String current_sql_cmd;
         private bool autoprint;
-        private void Form1_Load(object sender, EventArgs e)
+        private int ordersCount;
+        private int loadedOrders;
+
+        List<Order> orders;
+        
+        private void TablesForm_Load(object sender, EventArgs e)
         {
+            
             openOrdersRdBtn.PerformClick();
             ipLabel.Text = "Machine IP Address: " + Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
             this.lastIndex = 0;
+
             Task.Run(() => checkForChanges());
+           
+
             //initializePrinter();
         }
         private void label1_Click(object sender, EventArgs e)
@@ -44,16 +60,72 @@ namespace RavaisiDesktop
 
         private void getOrdersBtn_Click(object sender, EventArgs e)
         {
-            getOrders();
+            getOrders(current_sql_cmd);
+            showOrders();
         }
-        private int getLastIndex()
+
+
+
+
+        private Button createButton(string text,string name,Point location,int width, int height , Action <object, EventArgs> click )
         {
-            String sql_command = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
+            Button b = new Button()
+            {
+                Text = text,
+                Name = name,
+                Location = location,
+                Width = width,
+                Height = height
+               
+            };
+            b.Click += new EventHandler(click);
+            return b;
+        }
+
+        private void showOrders()
+        {
+            int ButtonX = 100;
+            int ButtonY = 50;
+            int StandardButtonX = 100;
+            int ButtonWidth = 200;
+            int ButtonHeight = 150;
+            TablesPanel.Controls.Clear();
+            foreach (Order order in orders)
+            {
+                Button button = createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
+                TablesPanel.Controls.Add(button);
+                
+                if ((button.Location.X + 10 + 2*ButtonWidth) > Screen.PrimaryScreen.Bounds.Width)
+                {
+                    ButtonX = StandardButtonX;
+                    ButtonY = ButtonY + 10 + ButtonHeight;
+                }
+                else
+                {
+                    ButtonX += ButtonWidth + 10;
+                }
+            }
+            updateReadOrderButtons();
+        }
+        void orderButtonClick(object sender, EventArgs e, Order order)
+        {
+            order.Show();
+        }
+
+        private MySqlCommand sql_query(string cmd)
+        {
             MySqlConnection connect = new MySqlConnection();
             connect.ConnectionString = dbconnect;
             connect.Open();
-            MySqlCommand command = new MySqlCommand(sql_command);
+            MySqlCommand command = new MySqlCommand(cmd);
             command.Connection = connect;
+            return command;
+        }
+
+        
+
+        private String readResult(MySqlCommand command)
+        {
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             adapter.SelectCommand = command;
             String result = "";
@@ -63,18 +135,37 @@ namespace RavaisiDesktop
             {
                 while (reader.Read())
                 {
-                    result = result + reader.GetString(0);   
+                    result = result + reader.GetString(0);
                 }
             }
             finally
             {
                 reader.Close();
-                connect.Close();
+                command.Connection.Close();
             }
+            return result;
+        }
+        private int getLastIndex()
+        {
+            String sql_command = "SELECT id FROM orders ORDER BY id DESC LIMIT 1";
+            MySqlCommand command = sql_query(sql_command);
+            string result = readResult(command);
+
             if (!result.Equals(""))
                 return int.Parse(result);
             else return 0;
         }
+
+        private int getLoadedOrders()
+        {
+            MySqlCommand command = sql_query(NEW_ORDERS_SQL_CMD);
+            string result = readResult(command);
+            if (!result.Equals(""))
+                return int.Parse(result);
+            else return 0;
+
+        }
+        
         
         //private void initializePrinter()
         //{
@@ -106,7 +197,15 @@ namespace RavaisiDesktop
             return false;
           
         }
-       
+        private bool checkForLoadedOrders()
+        {
+            if (this.loadedOrders != getLoadedOrders())
+            {
+                this.loadedOrders = getLoadedOrders();
+                return true;
+            }
+            return false;
+        }       
         private int getOpenRowsCount()
         {
             String sql_command = "SELECT COUNT(*) FROM orders WHERE closed=0";
@@ -143,13 +242,16 @@ namespace RavaisiDesktop
                     System.Media.SoundPlayer player = new System.Media.SoundPlayer("bell.wav");
                     player.Play();
                     //MessageBox.Show("Νεα παραγγελια!");
-                    this.Invoke(new Action (()=>getOrders()));
+                    this.Invoke(new Action (()=>getOrders(current_sql_cmd)));
+                    this.Invoke(new Action(() => showOrders()));
                 }
-                if(DeletedOrderCheck())
+                if (checkForLoadedOrders())
                 {
-                    this.Invoke(new Action(() => getOrders()));
+                    this.Invoke(new Action(() => getOrders(current_sql_cmd)));
+                    this.Invoke(new Action(() => showOrders()));                        
                 }
             }
+            
         }
         
         private Order[] getNewOrders()
@@ -159,28 +261,13 @@ namespace RavaisiDesktop
 
         private void autoPrint()
         { }
-        private bool DeletedOrderCheck()
+      
+        public void getOrders(string cmd)
         {
-            if (this.openRowsCount > getOpenRowsCount())
-            {
-                this.openRowsCount = getOpenRowsCount();
-                return true;
-            }
-            //this.openRowsCount = getOpenRowsCount();
-            return false;
-
-        }
-   
-        public void getOrders()
-        {
-            MySqlConnection connect = new MySqlConnection();
-            connect.ConnectionString = dbconnect;
-            connect.Open();
-            MySqlCommand command = new MySqlCommand(sql_cmd);
-            command.Connection = connect;
+            MySqlCommand command = sql_query(cmd);
+            DataTable dt = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             adapter.SelectCommand = command;
-            DataTable dt = new DataTable();
             adapter.Fill(dt);
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = dt;
@@ -188,14 +275,17 @@ namespace RavaisiDesktop
             ordersGridView.Columns["order_string"].Visible = false;
             ordersGridView.Columns["loaded"].Visible = false;
             ordersGridView.Columns["price"].Visible = false;
-
-
+            orders = new List<Order>();
             foreach (DataGridViewRow row in ordersGridView.Rows)
             {
                 if (row.Cells["id"].Value == null)
                     break;
-                Order order = new Order(row.Cells["order_String"].Value.ToString(), row.Cells["price"].Value.ToString(), row.Cells["id"].Value.ToString());
+                Order order = new Order(row.Cells["order_String"].Value.ToString(), row.Cells["price"].Value.ToString(), row.Cells["id"].Value.ToString(), ((Boolean)row.Cells["loaded"].Value));
+
+                orders.Add(order);
+
             }
+
         
         }
 
@@ -203,7 +293,7 @@ namespace RavaisiDesktop
         {
             try
             {
-                Order order = new Order(ordersGridView.Rows[e.RowIndex].Cells["order_string"].Value.ToString(), ordersGridView.Rows[e.RowIndex].Cells["price"].Value.ToString(), ordersGridView.Rows[e.RowIndex].Cells["id"].Value.ToString());
+                Order order = new Order(ordersGridView.Rows[e.RowIndex].Cells["order_string"].Value.ToString(), ordersGridView.Rows[e.RowIndex].Cells["price"].Value.ToString(), ordersGridView.Rows[e.RowIndex].Cells["id"].Value.ToString(), ((Boolean)ordersGridView.Rows[e.RowIndex].Cells["loaded"].Value));
                 //order.mergeOrders();
                 order.Show();
             }
@@ -213,28 +303,57 @@ namespace RavaisiDesktop
             }
         }
 
+      
+        private void updateReadOrderButtons()
+        {
+            getOrders(NEW_ORDERS_SQL_CMD);   
+           
+           foreach (Control control in TablesPanel.Controls)
+           {
+                Button btn = ((Button)control);
+                btn.BackColor = Color.Green;
+                foreach (Order order in orders)
+                {                   
+                    if (btn.Text == order.table)
+                    {
+                        if (!order.loaded)
+                            btn.BackColor = Color.Red;                                   
+                    }
+                }
+            }
+            getOrders(current_sql_cmd);
+        }
 
+        
         private void openOrdersRdBtn_CheckedChanged(object sender, EventArgs e)
         {
-            sql_cmd = "SELECT * FROM orders WHERE closed=0 AND order_index=1";
-            getOrders();
+            current_sql_cmd = OPEN_ORDERS_SQL_CMD;
+            getOrders(current_sql_cmd);
+            showOrders();
         }
 
         private void newOrders_CheckedChanged(object sender, EventArgs e)
         {
-            sql_cmd = "SELECT * FROM orders WHERE closed=0 AND loaded=0";
-            getOrders();
+            current_sql_cmd = NEW_ORDERS_SQL_CMD;
+            getOrders(current_sql_cmd);
+            showOrders();
         }
-
         
 
         private void allOrdersRdBtn_CheckedChanged(object sender, EventArgs e)
         {
-            sql_cmd = "SELECT * FROM orders";
-            getOrders();
+            current_sql_cmd = ALL_ORDERS_SQL_CMD;
+            getOrders(current_sql_cmd);
+            showOrders();
         }
 
         private void autoPrintChBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void TablesPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }

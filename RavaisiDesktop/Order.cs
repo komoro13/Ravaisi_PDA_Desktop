@@ -23,16 +23,17 @@ namespace RavaisiDesktop
     {
         string dbconnect = "server=127.0.0.1; User=root; password=;database=ravaisi";
         String orderString;
-        String table;
+        public String table;
         ArrayList products = new ArrayList();
         String price;
         String products_string;
         ArrayList order = new ArrayList();
-        orderForm orderForm1;
+        OrdersForm orderForm1;
         ArrayList orderStrings = new ArrayList();
         String orderId;
         String content = "";
         Product product1;
+        public Boolean loaded;
         String stringToPrint;
         Font font = new Font(FontFamily.GenericMonospace, 8);
         Boolean setHeader = false;
@@ -129,14 +130,15 @@ namespace RavaisiDesktop
 
         }
 
-        public Order(String orderString, String price, String orderId)
+        public Order(String orderString, String price, String orderId, Boolean loaded)
         {
             this.orderString = orderString;
             this.table = this.orderString.Split('|')[0].Split('{')[1].Split('}')[0].Split(':')[1].Trim();
             this.price = price; 
             this.orderId = orderId;
             printDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("pprnm", 285, 600);
-
+            this.loaded = loaded;
+            
         }
         
         int getOrderStrings()
@@ -144,7 +146,7 @@ namespace RavaisiDesktop
             orderStrings.Clear();
             String sql_command = "SELECT * FROM orders WHERE closed=0 AND order_table=" + "'" + this.table + "'" + "ORDER BY order_index DESC";
             MySqlConnection connect = new MySqlConnection();
-            connect.ConnectionString = this.dbconnect;
+            connect.ConnectionString = dbconnect;
             connect.Open();
             MySqlCommand command = new MySqlCommand(sql_command);
             command.Connection = connect;
@@ -261,8 +263,8 @@ namespace RavaisiDesktop
         public void Show()
         {
             setOrderAsLoaded(true);
-            this.orderForm1 = new orderForm(this.orderString, this.price, this.orderId);
-            this.orderForm1.Show();
+            this.orderForm1 = new OrdersForm(this.orderString, this.price, this.orderId);
+            this.orderForm1.Show();            
             mergeOrders();
             this.orderForm1.addOrderTab(getOrderString(this.order), "Ολη η παραγγελια");
             this.orderForm1.tableLabel.Text = "Τραπεζι: " + this.table;
@@ -270,7 +272,6 @@ namespace RavaisiDesktop
             {   
                 this.orderForm1.addOrderTab(getOrderString(getAddedOrder(orderSt)), "Παραγγελια: " + orderSt.Split('#')[1]);
             }
-
 
         }
 

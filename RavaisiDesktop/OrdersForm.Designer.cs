@@ -1,6 +1,6 @@
 ﻿namespace RavaisiDesktop
 {
-    partial class orderForm
+    partial class OrdersForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(orderForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrdersForm));
             this.tableLabel = new System.Windows.Forms.Label();
             this.orderLabel = new System.Windows.Forms.Label();
             this.ordersTabsControl = new System.Windows.Forms.TabControl();
@@ -150,7 +150,7 @@
             // 
             this.thermalPrintDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.thermalPrintDocument_PrintPage);
             // 
-            // orderForm
+            // OrdersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -162,7 +162,7 @@
             this.Controls.Add(this.printBtn);
             this.Controls.Add(this.closeOrderBtn);
             this.Controls.Add(this.tableLabel);
-            this.Name = "orderForm";
+            this.Name = "OrdersForm";
             this.Text = "Order form";
             this.Load += new System.EventHandler(this.orderForm_Load);
             this.ordersTabsControl.ResumeLayout(false);

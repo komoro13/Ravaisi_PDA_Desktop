@@ -1,6 +1,6 @@
 ﻿namespace RavaisiDesktop
 {
-    partial class Form1
+    partial class TablesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TablesForm));
             this.getOrdersBtn = new System.Windows.Forms.Button();
             this.ordersGridView = new System.Windows.Forms.DataGridView();
             this.ipLabel = new System.Windows.Forms.Label();
@@ -36,12 +36,14 @@
             this.newOrders = new System.Windows.Forms.RadioButton();
             this.allOrdersRdBtn = new System.Windows.Forms.RadioButton();
             this.autoPrintChBox = new System.Windows.Forms.CheckBox();
+            this.TablesPanel = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.ordersGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // getOrdersBtn
             // 
-            this.getOrdersBtn.Location = new System.Drawing.Point(783, 563);
+            this.getOrdersBtn.Location = new System.Drawing.Point(692, 931);
             this.getOrdersBtn.Name = "getOrdersBtn";
             this.getOrdersBtn.Size = new System.Drawing.Size(151, 45);
             this.getOrdersBtn.TabIndex = 1;
@@ -59,12 +61,13 @@
             this.ordersGridView.RowTemplate.Height = 24;
             this.ordersGridView.Size = new System.Drawing.Size(870, 374);
             this.ordersGridView.TabIndex = 2;
+            this.ordersGridView.Visible = false;
             this.ordersGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ordersGridView_CellContentClick);
             // 
             // ipLabel
             // 
             this.ipLabel.AutoSize = true;
-            this.ipLabel.Location = new System.Drawing.Point(61, 34);
+            this.ipLabel.Location = new System.Drawing.Point(1280, 866);
             this.ipLabel.Name = "ipLabel";
             this.ipLabel.Size = new System.Drawing.Size(76, 16);
             this.ipLabel.TabIndex = 3;
@@ -73,7 +76,7 @@
             // openOrdersRdBtn
             // 
             this.openOrdersRdBtn.AutoSize = true;
-            this.openOrdersRdBtn.Location = new System.Drawing.Point(146, 494);
+            this.openOrdersRdBtn.Location = new System.Drawing.Point(55, 862);
             this.openOrdersRdBtn.Name = "openOrdersRdBtn";
             this.openOrdersRdBtn.Size = new System.Drawing.Size(161, 20);
             this.openOrdersRdBtn.TabIndex = 5;
@@ -85,7 +88,7 @@
             // newOrders
             // 
             this.newOrders.AutoSize = true;
-            this.newOrders.Location = new System.Drawing.Point(146, 588);
+            this.newOrders.Location = new System.Drawing.Point(55, 956);
             this.newOrders.Name = "newOrders";
             this.newOrders.Size = new System.Drawing.Size(172, 20);
             this.newOrders.TabIndex = 6;
@@ -97,7 +100,7 @@
             // allOrdersRdBtn
             // 
             this.allOrdersRdBtn.AutoSize = true;
-            this.allOrdersRdBtn.Location = new System.Drawing.Point(146, 541);
+            this.allOrdersRdBtn.Location = new System.Drawing.Point(55, 909);
             this.allOrdersRdBtn.Name = "allOrdersRdBtn";
             this.allOrdersRdBtn.Size = new System.Drawing.Size(153, 20);
             this.allOrdersRdBtn.TabIndex = 8;
@@ -109,7 +112,7 @@
             // autoPrintChBox
             // 
             this.autoPrintChBox.AutoSize = true;
-            this.autoPrintChBox.Location = new System.Drawing.Point(425, 541);
+            this.autoPrintChBox.Location = new System.Drawing.Point(334, 909);
             this.autoPrintChBox.Name = "autoPrintChBox";
             this.autoPrintChBox.Size = new System.Drawing.Size(152, 20);
             this.autoPrintChBox.TabIndex = 9;
@@ -117,11 +120,33 @@
             this.autoPrintChBox.UseVisualStyleBackColor = true;
             this.autoPrintChBox.CheckedChanged += new System.EventHandler(this.autoPrintChBox_CheckedChanged);
             // 
-            // Form1
+            // TablesPanel
+            // 
+            this.TablesPanel.AutoScroll = true;
+            this.TablesPanel.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.TablesPanel.Location = new System.Drawing.Point(27, 25);
+            this.TablesPanel.Name = "TablesPanel";
+            this.TablesPanel.Size = new System.Drawing.Size(1825, 819);
+            this.TablesPanel.TabIndex = 10;
+            this.TablesPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.TablesPanel_Paint);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1826, 24);
+            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // TablesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 730);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.CausesValidation = false;
+            this.ClientSize = new System.Drawing.Size(1826, 1025);
+            this.Controls.Add(this.TablesPanel);
             this.Controls.Add(this.autoPrintChBox);
             this.Controls.Add(this.allOrdersRdBtn);
             this.Controls.Add(this.newOrders);
@@ -129,10 +154,15 @@
             this.Controls.Add(this.ipLabel);
             this.Controls.Add(this.ordersGridView);
             this.Controls.Add(this.getOrdersBtn);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
+            this.Name = "TablesForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Ραβαΐσι PDA";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.TablesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ordersGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -147,6 +177,8 @@
         private System.Windows.Forms.RadioButton newOrders;
         private System.Windows.Forms.RadioButton allOrdersRdBtn;
         private System.Windows.Forms.CheckBox autoPrintChBox;
+        private System.Windows.Forms.Panel TablesPanel;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 

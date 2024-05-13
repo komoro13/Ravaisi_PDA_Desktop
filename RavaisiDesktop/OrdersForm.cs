@@ -6,13 +6,14 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
+using System.Text;  
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RavaisiDesktop
 {
-    public partial class orderForm : Form
+    public partial class OrdersForm : Form
     {
         string orderId;
         string orderString;
@@ -20,9 +21,10 @@ namespace RavaisiDesktop
         string orderIndex;
         string orderTable;
         public string dbconnect = "server=127.0.0.1; User=root; password=;database=ravaisi";
+     
         Font font = new Font(FontFamily.GenericMonospace, 15);
         String stringToPrint;
-        public orderForm(string orderString, string price, string orderId)
+        public OrdersForm(string orderString, string price, string orderId)
         {
             InitializeComponent();
             this.orderString = orderString;
@@ -65,7 +67,7 @@ namespace RavaisiDesktop
 
         private void printBtn_Click(object sender, EventArgs e)
         {
-            Order order = new Order(this.orderString, this.price, this.orderId);
+            Order order = new Order(this.orderString, this.price, this.orderId, true);
             if (ordersTabsControl.SelectedIndex == 0)
             {
                 order.print("ALL");
@@ -76,7 +78,7 @@ namespace RavaisiDesktop
        
         private void closeOrderBtn_Click(object sender, EventArgs e)
         {
-            Order order = new Order(this.orderString, this.price, this.orderId);
+            Order order = new Order(this.orderString, this.price, this.orderId, true);
             order.closeOrder();
             MessageBox.Show("Το τραπέζι " + this.orderTable + "ειναι ελεύθερο");
        
@@ -91,7 +93,7 @@ namespace RavaisiDesktop
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Order order = new Order(this.orderString, this.price, this.orderId);
+            Order order = new Order(this.orderString, this.price, this.orderId, true);
             if (ordersTabsControl.SelectedIndex == 0)
             {
                 order.preview("ALL");
@@ -99,7 +101,7 @@ namespace RavaisiDesktop
             }
             order.preview(ordersTabsControl.SelectedIndex.ToString());
         }
-        
+     
         private void thermalPrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             int charactersOnPage;
