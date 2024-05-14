@@ -35,6 +35,8 @@ namespace RavaisiDesktop
         private String OPEN_ORDERS_SQL_CMD = "SELECT * FROM orders WHERE closed=0 AND order_index=1";
         private String NEW_ORDERS_SQL_CMD = "SELECT * FROM orders WHERE closed=0 AND loaded=0";
         private String ALL_ORDERS_SQL_CMD = "SELECT * FROM orders";
+        private String COUNT_OPEN_ORDERS_SQL_CMD = "SELECT COUNT(*) FROM orders WHERE closed=0 AND order_index=1";
+        private String COUNT_NEW_ORDERS_SQL_CMD = "SELECT COUNT(*) FROM orders WHERE closed=0 AND loaded=0";
         private String current_sql_cmd;
         private bool autoprint;
         private int ordersCount;
@@ -161,8 +163,8 @@ namespace RavaisiDesktop
 
         private int getActiveOrders()
         {
-            MySqlCommand command = sql_query(OPEN_ORDERS_SQL_CMD);
-            string result = readResult(command);
+            MySqlCommand command = sql_query(COUNT_OPEN_ORDERS_SQL_CMD);
+            string result = readResult(command);       
             if (!result.Equals(""))
                 return int.Parse(result);
             else return 0;
@@ -170,7 +172,7 @@ namespace RavaisiDesktop
         }
         private int getLoadedOrders()
         {
-            MySqlCommand command = sql_query(NEW_ORDERS_SQL_CMD);
+            MySqlCommand command = sql_query(COUNT_NEW_ORDERS_SQL_CMD);
             string result = readResult(command);
             if (!result.Equals(""))
                 return int.Parse(result);
@@ -210,12 +212,12 @@ namespace RavaisiDesktop
           
         }
         private bool checkForActiveOrders()
-        {
+        {               
             if (this.activeOrders != getActiveOrders())
-            {
+            {                
                 this.activeOrders = getActiveOrders();
                 return true;
-            }
+            }         
             return false;
         }
         private bool checkForLoadedOrders()
