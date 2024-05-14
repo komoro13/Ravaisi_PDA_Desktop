@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Management;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -38,6 +39,7 @@ namespace RavaisiDesktop
         private bool autoprint;
         private int ordersCount;
         private int loadedOrders;
+        private int activeOrders;
 
         List<Order> orders;
         
@@ -49,7 +51,6 @@ namespace RavaisiDesktop
             this.lastIndex = 0;
 
             Task.Run(() => checkForChanges());
-           
 
             //initializePrinter();
         }
@@ -61,13 +62,13 @@ namespace RavaisiDesktop
         private void getOrdersBtn_Click(object sender, EventArgs e)
         {
             getOrders(current_sql_cmd);
-            showOrders();
+            showOrders(false);
         }
 
 
 
 
-        private Button createButton(string text,string name,Point location,int width, int height , Action <object, EventArgs> click )
+        private Button createButton(string text,string name,Point location,int width, int height , Action <object, EventArgs> click)
         {
             Button b = new Button()
             {
@@ -82,14 +83,15 @@ namespace RavaisiDesktop
             return b;
         }
 
-        private void showOrders()
+        private void showOrders(bool loaded)
         {
             int ButtonX = 100;
             int ButtonY = 50;
             int StandardButtonX = 100;
             int ButtonWidth = 200;
             int ButtonHeight = 150;
-            TablesPanel.Controls.Clear();
+            if (!loaded)
+                TablesPanel.Controls.Clear();           
             foreach (Order order in orders)
             {
                 Button button = createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
@@ -111,6 +113,7 @@ namespace RavaisiDesktop
         {
             order.Show();
         }
+      
 
         private MySqlCommand sql_query(string cmd)
         {
@@ -156,6 +159,15 @@ namespace RavaisiDesktop
             else return 0;
         }
 
+        private int getActiveOrders()
+        {
+            MySqlCommand command = sql_query(OPEN_ORDERS_SQL_CMD);
+            string result = readResult(command);
+            if (!result.Equals(""))
+                return int.Parse(result);
+            else return 0;
+
+        }
         private int getLoadedOrders()
         {
             MySqlCommand command = sql_query(NEW_ORDERS_SQL_CMD);
@@ -197,10 +209,19 @@ namespace RavaisiDesktop
             return false;
           
         }
+        private bool checkForActiveOrders()
+        {
+            if (this.activeOrders != getActiveOrders())
+            {
+                this.activeOrders = getActiveOrders();
+                return true;
+            }
+            return false;
+        }
         private bool checkForLoadedOrders()
         {
             if (this.loadedOrders != getLoadedOrders())
-            {
+            {              
                 this.loadedOrders = getLoadedOrders();
                 return true;
             }
@@ -243,12 +264,18 @@ namespace RavaisiDesktop
                     player.Play();
                     //MessageBox.Show("Νεα παραγγελια!");
                     this.Invoke(new Action (()=>getOrders(current_sql_cmd)));
-                    this.Invoke(new Action(() => showOrders()));
+                    this.Invoke(new Action(() => showOrders(false)));   
                 }
                 if (checkForLoadedOrders())
                 {
                     this.Invoke(new Action(() => getOrders(current_sql_cmd)));
-                    this.Invoke(new Action(() => showOrders()));                        
+                    this.Invoke(new Action(() => showOrders(true)));                    
+                }
+                
+                if (checkForActiveOrders())
+                {
+                    this.Invoke(new Action(() => getOrders(current_sql_cmd)));
+                    this.Invoke(new Action(() => showOrders(false)));
                 }
             }
             
@@ -329,14 +356,14 @@ namespace RavaisiDesktop
         {
             current_sql_cmd = OPEN_ORDERS_SQL_CMD;
             getOrders(current_sql_cmd);
-            showOrders();
+            showOrders(false);
         }
 
         private void newOrders_CheckedChanged(object sender, EventArgs e)
         {
             current_sql_cmd = NEW_ORDERS_SQL_CMD;
             getOrders(current_sql_cmd);
-            showOrders();
+            showOrders(false);
         }
         
 
@@ -344,7 +371,7 @@ namespace RavaisiDesktop
         {
             current_sql_cmd = ALL_ORDERS_SQL_CMD;
             getOrders(current_sql_cmd);
-            showOrders();
+            showOrders(false);
         }
 
         private void autoPrintChBox_CheckedChanged(object sender, EventArgs e)
