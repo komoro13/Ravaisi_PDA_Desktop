@@ -1,21 +1,12 @@
-﻿using Aspose.Words.Drawing.Ole;
-using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Cms;
-using Org.BouncyCastle.Asn1.Crmf;
-using Org.BouncyCastle.Crypto.Tls;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RavaisiDesktop
 {
@@ -27,25 +18,28 @@ namespace RavaisiDesktop
         ArrayList products = new ArrayList();
         String price;
         String products_string;
-        ArrayList order = new ArrayList();
-        OrdersForm orderForm1;
-        ArrayList orderStrings = new ArrayList();
-        String orderId;
+        String current_order;
+        public ArrayList order = new ArrayList();
+        public ArrayList orderStrings = new ArrayList();
+        public String orderId;
         String content = "";
+        public String orderIndex;
         Product product1;
         public Boolean loaded;
+        public Boolean printed;
+        public Boolean mergedOrders;
         String stringToPrint;
         Font font = new Font(FontFamily.GenericMonospace, 8);
         Boolean setHeader = false;
         PrintDocument printDocument = new PrintDocument();
         class Product
         {
-            String name;
-            String price;
-            String quantity;
-            String toppings;
-            String comments;
-            
+            public String name;
+            public String price;
+            public String quantity;
+            public String toppings;
+            public String comments;
+           
             public Product(String name, String price, String quantity, String toppings, String comments)
             {
                 this.name = name;
@@ -98,39 +92,9 @@ namespace RavaisiDesktop
                 return str;
             }
             
-            public String GetStringForThermal()
-            {
-                String result;
-                if (this.toppings.Equals(String.Empty))
-                {
-                    result = this.quantity + " " + this.name; // + " " + this.toppings;
-                    for (int j = 0; j <= (40 - this.name.Length); j++)
-                    {
-                        result += "-";
-                    }
-                }
-                else
-                {
-                    result = this.quantity + " " + this.name;
-                    for (int j = 0; j <= (40 - this.name.Length); j++)
-                    {
-                        result += "-";
-                    }
-                }
-                result += ((float.Parse(this.price)) / 10).ToString();
-                MessageBox.Show(((float.Parse(this.price)) / 10).ToString());
-                if (this.price.Contains(","))
-                    result += "0";
-                result += "€";
-                if (!this.toppings.Equals(String.Empty))
-                    result += "\nΥλικα: " + this.toppings;
-                result += "\nΣχολια: " + this.comments;
-                return result;
-            }
-
         }
 
-        public Order(String orderString, String price, String orderId, Boolean loaded)
+        public Order(String orderString, String price, String orderId, Boolean loaded, Boolean printed, String orderIndex)
         {
             this.orderString = orderString;
             this.table = this.orderString.Split('|')[0].Split('{')[1].Split('}')[0].Split(':')[1].Trim();
@@ -138,8 +102,11 @@ namespace RavaisiDesktop
             this.orderId = orderId;
             printDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("pprnm", 285, 600);
             this.loaded = loaded;
+            this.printed = printed;
+            this.orderIndex = orderIndex;
             
         }
+        
         
         int getOrderStrings()
         {
@@ -199,7 +166,7 @@ namespace RavaisiDesktop
                 }
 
             }
-
+            mergedOrders = true;
         }
         
         public String getOrderString(ArrayList ord)
@@ -220,7 +187,8 @@ namespace RavaisiDesktop
             orderStr += " €";
             return orderStr;
         }
-        ArrayList getAddedOrder(string ordStr)
+
+        public ArrayList getAddedOrder(string ordStr)
         {
             string ordString = ordStr.Split('#')[0];
             string prodString;
@@ -258,25 +226,7 @@ namespace RavaisiDesktop
             }
             return order1;
         }
-       
-      
-        public void Show()
-        {
-            setOrderAsLoaded(true);
-            this.orderForm1 = new OrdersForm(this.orderString, this.price, this.orderId);
-            this.orderForm1.Show();            
-            mergeOrders();
-            this.orderForm1.addOrderTab(getOrderString(this.order), "Ολη η παραγγελια");
-            this.orderForm1.tableLabel.Text = "Τραπεζι: " + this.table;
-            foreach (string orderSt in this.orderStrings)
-            {   
-                this.orderForm1.addOrderTab(getOrderString(getAddedOrder(orderSt)), "Παραγγελια: " + orderSt.Split('#')[1]);
-            }
-
-        }
-
-
-        
+              
         private string CreateDocument(string orderTable, ArrayList order, string index)
         {
            
@@ -284,30 +234,26 @@ namespace RavaisiDesktop
                 
         }
        
+ 
         public void print(String tab)
-        {
-            String filename;
+        { 
+            String filename;         
             PrintDialog printDialog = new PrintDialog();
             if (tab.Equals("ALL"))
             {
-                mergeOrders();
-                stringToPrint = getOrderString(this.order);
+                mergeOrders();         
                 printDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("pprnm", 285, 235 + ((int)(getOrderLines() * (font.Size * 2))));
                 printDocument.DocumentName = CreateDocument(this.table, this.order, tab);
-                //printDocument.Print();
-                //printDialog.Document = printDocument;
-                //printDialog.AllowSelection = true;
-                //printDialog.AllowSomePages = true;
                 stringToPrint = getOrderString(this.order);
                 setHeader = false;
-              //  if (printDialog.ShowDialog() == DialogResult.OK)
-                //{
-                    printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
-                    printDocument.Print();
-                //}
+                printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
+                printDocument.Print(); 
+                setPrintedAsTrue(tab);
                 return;
             }
-            String sql_command = "SELECT order_string FROM orders WHERE closed=0 AND order_table=" + "'" + this.table + "'" + " AND order_index=" + tab;
+            String sql_command = "SELECT order_string FROM orders WHERE closed=0 AND order_table='" + this.table + "'";
+            if (!tab.Equals("ALL"))
+                sql_command += " AND order_index=" + tab;
             MySqlConnection connect = new MySqlConnection();
             connect.ConnectionString = dbconnect;
             connect.Open();
@@ -318,36 +264,20 @@ namespace RavaisiDesktop
             String result = "";
             MySqlDataReader reader;
             reader = command.ExecuteReader();
-            try
-            {
-                while (reader.Read())
-                {
-                    result = result + reader.GetString(0);
-                }
-            }
-            finally
-            {
-                reader.Close();
-                connect.Close();
-            }
+            reader.Read();
+            result += reader.GetString(0);
+            reader.Close();
+            connect.Close();
             this.order = getAddedOrder(result);
-            stringToPrint = getOrderString(this.order);
-            printDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("pprnm", 285, 195 + (int) (getOrderLines()*font.Size));
+            stringToPrint = getOrderString(this.order);         
+            printDocument.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("pprnm", 285, 195 + (int)(getOrderLines() * font.Size));   
             printDocument.DocumentName = CreateDocument(this.table, this.order, tab);
-            //printDialog.Document = printDocument;
-            //printDialog.AllowSelection = true;
-            //printDialog.AllowSomePages = true;
-
-            //if (printDialog.ShowDialog() == DialogResult.OK)
-            //{
-                printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
-                printDocument.Print();
-            //}
+            printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
+            printDocument.Print();
+            setPrintedAsTrue(tab);
             return;
 
         }
-
-
 
         public void preview(String tab)
         {
@@ -359,7 +289,7 @@ namespace RavaisiDesktop
             }
             else
             {
-                String sql_command = "SELECT order_string FROM orders WHERE closed=0 AND order_table=" + "'" + this.table + "'" + " AND order_index=" + tab;
+                String sql_command = "SELECT order_string FROM orders WHERE closed=0 AND order_table='" + this.table + "'" + " AND order_index=" + tab;
                 MySqlConnection connect = new MySqlConnection();
                 connect.ConnectionString = dbconnect;
                 connect.Open();
@@ -390,8 +320,9 @@ namespace RavaisiDesktop
             PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
             printDocument.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
             printPreviewDialog.Document = printDocument;
-            printPreviewDialog.Show();
+            printPreviewDialog.Show();         
         }
+
         public int getOrderLines()
         {
             int lines = 0;
@@ -402,6 +333,7 @@ namespace RavaisiDesktop
             }
             return lines;
         }
+
         private void printDocument_PrintPage(Object sender, PrintPageEventArgs e)
         
         {
@@ -419,23 +351,65 @@ namespace RavaisiDesktop
                 setHeader = true;
             }
 
-            e.Graphics.DrawString(stringToPrint, font, Brushes.Black, new Point(5, 200));
+            //e.Graphics.DrawString(stringToPrint, font, Brushes.Black, new Point(5, 200));
+
+            
+            int y = 200;
+            int line_offset = 25;
+
+            foreach (Product product in order)
+            {
+                e.Graphics.DrawString(product.quantity + " " + product.name,new Font("Arial", 15, FontStyle.Bold),Brushes.Black, new Point(5, y ));
+                y += line_offset;
+                if (!product.toppings.Equals(""))
+                {
+                    e.Graphics.DrawString(product.toppings, new Font("Arial", 15, FontStyle.Regular), Brushes.Black, new Point(5, y));
+                    y += line_offset;
+                }
+                if (!product.comments.Equals(""))
+                {
+                    e.Graphics.DrawString("Σχολια:" + product.comments, new Font("Arial", 12, FontStyle.Regular), Brushes.Black, new Point(5, y));
+                    y += line_offset*2;
+                }
+            }
             //e.Graphics.MeasureString(stringToPrint, this.font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
           
            //  e.Graphics.DrawString(stringToPrint, this.font, Brushes.Black, e.MarginBounds.Left-90, e.MarginBounds.Right, StringFormat.GenericTypographic);
 
 //            stringToPrint = stringToPrint.Substring(charactersOnPage);//
             e.HasMorePages = false;
-    
+            setHeader = false;
             
         }
-        public void  printThermal()
+       
+        private void setPrintedAsTrue(String order_id)
         {
+            String sql_command = "UPDATE orders SET printed=1 where closed=0 AND order_table='" + this.table + "'";
+            if (order_id != "ALL")
+                sql_command += " AND order_index=" + order_id;   
+            MySqlConnection connect = new MySqlConnection();
+            connect.ConnectionString = dbconnect;
+            connect.Open();
+            MySqlCommand command = new MySqlCommand(sql_command);
+            command.Connection = connect;
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            adapter.SelectCommand = command;
+            String result = "";
+            MySqlDataReader reader;
+            reader = command.ExecuteReader();
+            try
+            {
+                while (reader.Read())
+                {
+                    result = result + reader.GetString(0);
+                }
+            }
+            finally
+            {
+                reader.Close();
+                connect.Close();
 
-        }
-        private void setPrintedAsTrue()
-        {
-
+            }
         }
         public void closeOrder()
         {
@@ -448,7 +422,7 @@ namespace RavaisiDesktop
             MySqlDataAdapter adapter = new MySqlDataAdapter();
             adapter.SelectCommand = command;
             String result = "";
-            MySqlDataReader reader;
+            MySqlDataReader reader;         
             reader = command.ExecuteReader();
             try
             {
