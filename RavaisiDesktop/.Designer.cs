@@ -37,10 +37,10 @@
             this.allOrdersRdBtn = new System.Windows.Forms.RadioButton();
             this.autoPrintChBox = new System.Windows.Forms.CheckBox();
             this.TablesPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.productFormBtn = new System.Windows.Forms.Button();
+            this.settingsFormBtn = new System.Windows.Forms.Button();
+            this.historyFormBtn = new System.Windows.Forms.Button();
+            this.helpFormBtn = new System.Windows.Forms.Button();
             this.OrderPanel = new System.Windows.Forms.Panel();
             this.previewBtn = new System.Windows.Forms.Button();
             this.orderIdLabel = new System.Windows.Forms.Label();
@@ -51,15 +51,17 @@
             this.printBtn = new System.Windows.Forms.Button();
             this.closeOrderBtn = new System.Windows.Forms.Button();
             this.tableLabel = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.ordersGridView)).BeginInit();
             this.OrderPanel.SuspendLayout();
             this.ordersTabsControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // getOrdersBtn
             // 
-            this.getOrdersBtn.Location = new System.Drawing.Point(1266, 934);
+            this.getOrdersBtn.Location = new System.Drawing.Point(17, 182);
             this.getOrdersBtn.Name = "getOrdersBtn";
             this.getOrdersBtn.Size = new System.Drawing.Size(151, 45);
             this.getOrdersBtn.TabIndex = 1;
@@ -70,19 +72,19 @@
             // ordersGridView
             // 
             this.ordersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ordersGridView.Location = new System.Drawing.Point(1222, 79);
+            this.ordersGridView.Location = new System.Drawing.Point(1908, 857);
             this.ordersGridView.Name = "ordersGridView";
             this.ordersGridView.ReadOnly = true;
             this.ordersGridView.RowHeadersWidth = 51;
             this.ordersGridView.RowTemplate.Height = 24;
-            this.ordersGridView.Size = new System.Drawing.Size(84, 40);
+            this.ordersGridView.Size = new System.Drawing.Size(10, 10);
             this.ordersGridView.TabIndex = 2;
             this.ordersGridView.Visible = false;
             // 
             // ipLabel
             // 
             this.ipLabel.AutoSize = true;
-            this.ipLabel.Location = new System.Drawing.Point(1616, 884);
+            this.ipLabel.Location = new System.Drawing.Point(471, 27);
             this.ipLabel.Name = "ipLabel";
             this.ipLabel.Size = new System.Drawing.Size(76, 16);
             this.ipLabel.TabIndex = 3;
@@ -91,7 +93,7 @@
             // openOrdersRdBtn
             // 
             this.openOrdersRdBtn.AutoSize = true;
-            this.openOrdersRdBtn.Location = new System.Drawing.Point(1266, 830);
+            this.openOrdersRdBtn.Location = new System.Drawing.Point(17, 23);
             this.openOrdersRdBtn.Name = "openOrdersRdBtn";
             this.openOrdersRdBtn.Size = new System.Drawing.Size(161, 20);
             this.openOrdersRdBtn.TabIndex = 5;
@@ -103,7 +105,7 @@
             // newOrders
             // 
             this.newOrders.AutoSize = true;
-            this.newOrders.Location = new System.Drawing.Point(1610, 830);
+            this.newOrders.Location = new System.Drawing.Point(17, 75);
             this.newOrders.Name = "newOrders";
             this.newOrders.Size = new System.Drawing.Size(172, 20);
             this.newOrders.TabIndex = 6;
@@ -115,7 +117,7 @@
             // allOrdersRdBtn
             // 
             this.allOrdersRdBtn.AutoSize = true;
-            this.allOrdersRdBtn.Location = new System.Drawing.Point(1451, 830);
+            this.allOrdersRdBtn.Location = new System.Drawing.Point(17, 49);
             this.allOrdersRdBtn.Name = "allOrdersRdBtn";
             this.allOrdersRdBtn.Size = new System.Drawing.Size(153, 20);
             this.allOrdersRdBtn.TabIndex = 8;
@@ -127,7 +129,7 @@
             // autoPrintChBox
             // 
             this.autoPrintChBox.AutoSize = true;
-            this.autoPrintChBox.Location = new System.Drawing.Point(1266, 884);
+            this.autoPrintChBox.Location = new System.Drawing.Point(474, 60);
             this.autoPrintChBox.Name = "autoPrintChBox";
             this.autoPrintChBox.Size = new System.Drawing.Size(152, 20);
             this.autoPrintChBox.TabIndex = 9;
@@ -139,51 +141,61 @@
             // 
             this.TablesPanel.AutoScroll = true;
             this.TablesPanel.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.TablesPanel.Location = new System.Drawing.Point(22, 139);
+            this.TablesPanel.Location = new System.Drawing.Point(7, 49);
             this.TablesPanel.Name = "TablesPanel";
-            this.TablesPanel.Size = new System.Drawing.Size(1165, 840);
+            this.TablesPanel.Size = new System.Drawing.Size(1183, 1006);
             this.TablesPanel.TabIndex = 10;
             this.TablesPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.TablesPanel_Paint);
             // 
-            // button1
+            // productFormBtn
             // 
-            this.button1.Location = new System.Drawing.Point(187, 3);
-            this.button1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(250, 58);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.productFormBtn.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.productFormBtn.FlatAppearance.BorderSize = 0;
+            this.productFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.productFormBtn.Location = new System.Drawing.Point(38, 9);
+            this.productFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.productFormBtn.Name = "productFormBtn";
+            this.productFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.productFormBtn.TabIndex = 12;
+            this.productFormBtn.Text = "Προιοντα";
+            this.productFormBtn.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // settingsFormBtn
             // 
-            this.button2.Location = new System.Drawing.Point(437, 3);
-            this.button2.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(250, 58);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.settingsFormBtn.FlatAppearance.BorderSize = 0;
+            this.settingsFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsFormBtn.Location = new System.Drawing.Point(158, 9);
+            this.settingsFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.settingsFormBtn.Name = "settingsFormBtn";
+            this.settingsFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.settingsFormBtn.TabIndex = 13;
+            this.settingsFormBtn.Text = "Ρυθμισεις";
+            this.settingsFormBtn.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // historyFormBtn
             // 
-            this.button3.Location = new System.Drawing.Point(687, 3);
-            this.button3.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(250, 58);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.historyFormBtn.FlatAppearance.BorderSize = 0;
+            this.historyFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.historyFormBtn.Location = new System.Drawing.Point(278, 9);
+            this.historyFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.historyFormBtn.Name = "historyFormBtn";
+            this.historyFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.historyFormBtn.TabIndex = 14;
+            this.historyFormBtn.Text = "Ιστορικο";
+            this.historyFormBtn.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // helpFormBtn
             // 
-            this.button4.Location = new System.Drawing.Point(937, 3);
-            this.button4.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(250, 58);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.helpFormBtn.FlatAppearance.BorderSize = 0;
+            this.helpFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.helpFormBtn.Location = new System.Drawing.Point(398, 9);
+            this.helpFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.helpFormBtn.Name = "helpFormBtn";
+            this.helpFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.helpFormBtn.TabIndex = 15;
+            this.helpFormBtn.Text = "Βοηθεια";
+            this.helpFormBtn.UseVisualStyleBackColor = true;
+            this.helpFormBtn.Click += new System.EventHandler(this.button4_Click);
             // 
             // OrderPanel
             // 
@@ -194,14 +206,15 @@
             this.OrderPanel.Controls.Add(this.printBtn);
             this.OrderPanel.Controls.Add(this.closeOrderBtn);
             this.OrderPanel.Controls.Add(this.tableLabel);
-            this.OrderPanel.Location = new System.Drawing.Point(1202, 139);
+            this.OrderPanel.Location = new System.Drawing.Point(1196, 49);
             this.OrderPanel.Name = "OrderPanel";
-            this.OrderPanel.Size = new System.Drawing.Size(710, 675);
+            this.OrderPanel.Size = new System.Drawing.Size(712, 753);
             this.OrderPanel.TabIndex = 16;
+            this.OrderPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrderPanel_Paint);
             // 
             // previewBtn
             // 
-            this.previewBtn.Location = new System.Drawing.Point(527, 234);
+            this.previewBtn.Location = new System.Drawing.Point(197, 690);
             this.previewBtn.Name = "previewBtn";
             this.previewBtn.Size = new System.Drawing.Size(180, 38);
             this.previewBtn.TabIndex = 13;
@@ -222,10 +235,10 @@
             // 
             this.ordersTabsControl.Controls.Add(this.tabPage1);
             this.ordersTabsControl.Controls.Add(this.tabPage2);
-            this.ordersTabsControl.Location = new System.Drawing.Point(7, 120);
+            this.ordersTabsControl.Location = new System.Drawing.Point(7, 103);
             this.ordersTabsControl.Name = "ordersTabsControl";
             this.ordersTabsControl.SelectedIndex = 0;
-            this.ordersTabsControl.Size = new System.Drawing.Size(491, 495);
+            this.ordersTabsControl.Size = new System.Drawing.Size(715, 568);
             this.ordersTabsControl.TabIndex = 11;
             this.ordersTabsControl.Tag = "";
             // 
@@ -235,7 +248,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(483, 466);
+            this.tabPage1.Size = new System.Drawing.Size(707, 539);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Order 1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -261,7 +274,7 @@
             // 
             // printBtn
             // 
-            this.printBtn.Location = new System.Drawing.Point(527, 145);
+            this.printBtn.Location = new System.Drawing.Point(11, 690);
             this.printBtn.Name = "printBtn";
             this.printBtn.Size = new System.Drawing.Size(180, 38);
             this.printBtn.TabIndex = 10;
@@ -271,7 +284,7 @@
             // 
             // closeOrderBtn
             // 
-            this.closeOrderBtn.Location = new System.Drawing.Point(527, 319);
+            this.closeOrderBtn.Location = new System.Drawing.Point(383, 690);
             this.closeOrderBtn.Name = "closeOrderBtn";
             this.closeOrderBtn.Size = new System.Drawing.Size(180, 38);
             this.closeOrderBtn.TabIndex = 9;
@@ -288,26 +301,36 @@
             this.tableLabel.TabIndex = 8;
             this.tableLabel.Text = "Table: ";
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panel1.Controls.Add(this.openOrdersRdBtn);
+            this.panel1.Controls.Add(this.allOrdersRdBtn);
+            this.panel1.Controls.Add(this.newOrders);
+            this.panel1.Controls.Add(this.ipLabel);
+            this.panel1.Controls.Add(this.getOrdersBtn);
+            this.panel1.Controls.Add(this.autoPrintChBox);
+            this.panel1.Location = new System.Drawing.Point(1196, 808);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(712, 247);
+            this.panel1.TabIndex = 0;
+            // 
             // TablesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1924, 1055);
-            this.Controls.Add(this.ordersGridView);
             this.Controls.Add(this.OrderPanel);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.ordersGridView);
+            this.Controls.Add(this.helpFormBtn);
+            this.Controls.Add(this.historyFormBtn);
+            this.Controls.Add(this.settingsFormBtn);
+            this.Controls.Add(this.productFormBtn);
             this.Controls.Add(this.TablesPanel);
-            this.Controls.Add(this.autoPrintChBox);
-            this.Controls.Add(this.allOrdersRdBtn);
-            this.Controls.Add(this.newOrders);
-            this.Controls.Add(this.openOrdersRdBtn);
-            this.Controls.Add(this.ipLabel);
-            this.Controls.Add(this.getOrdersBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "TablesForm";
@@ -321,8 +344,9 @@
             this.ordersTabsControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -335,10 +359,10 @@
         private System.Windows.Forms.RadioButton allOrdersRdBtn;
         private System.Windows.Forms.CheckBox autoPrintChBox;
         private System.Windows.Forms.Panel TablesPanel;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button productFormBtn;
+        private System.Windows.Forms.Button settingsFormBtn;
+        private System.Windows.Forms.Button historyFormBtn;
+        private System.Windows.Forms.Button helpFormBtn;
         private System.Windows.Forms.Panel OrderPanel;
         private System.Windows.Forms.Button previewBtn;
         private System.Windows.Forms.Label orderIdLabel;
@@ -349,6 +373,7 @@
         private System.Windows.Forms.Button printBtn;
         private System.Windows.Forms.Button closeOrderBtn;
         public System.Windows.Forms.Label tableLabel;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

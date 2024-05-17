@@ -382,6 +382,16 @@ namespace RavaisiDesktop
         {
             loadedOrder.closeOrder();
         }
+
+        private void OrderPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
     
