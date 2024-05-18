@@ -59,5 +59,25 @@ namespace RavaisiDesktop.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap flat_lay_frame_with_seafood_copy_space {
+            get {
+                object obj = ResourceManager.GetObject("flat-lay-frame-with-seafood-copy-space", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ravaisi_logo_original_resized {
+            get {
+                object obj = ResourceManager.GetObject("ravaisi_logo_original_resized", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

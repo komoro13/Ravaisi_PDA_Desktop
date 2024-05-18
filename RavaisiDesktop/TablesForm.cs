@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Net;
+using System.Resources;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using RavaisiDesktop.Properties;
 namespace RavaisiDesktop
 {
     public partial class TablesForm : Form
@@ -60,8 +62,8 @@ namespace RavaisiDesktop
                 Name = name,
                 Location = location,
                 Width = width,
-                Height = height
-               
+                Height = height,
+                Font = new Font("Arial", 15)
             };
             b.Click += new EventHandler(click);
             return b;
@@ -82,11 +84,13 @@ namespace RavaisiDesktop
             {
                 Button button = createButton(order.table, order.table + "Btn", new Point(ButtonX, ButtonY), ButtonWidth, ButtonHeight, (s, e) => orderButtonClick(s, e, order));
                 TablesPanel.Controls.Add(button);
+                button.FlatAppearance.MouseOverBackColor = Color.Transparent;
+                
 
                 if ((button.Location.X + 100 + ButtonWidth) > TablesPanel.Bounds.Width)
                 {
                     ButtonX = StandardButtonX;
-                    ButtonY = ButtonY + 10 + ButtonHeight;
+                    ButtonY = ButtonY + 15 + ButtonHeight;
                 }
                 else
                 {
@@ -244,6 +248,7 @@ namespace RavaisiDesktop
             { 
                 TabPage tabPage = new TabPage();
                 tabPage.Text = text;
+                tabPage.BackColor = Color.LightGray;
                 Label label = new Label();
                 label.Text = orderString;
                 tabPage.AutoScroll = true;
@@ -305,13 +310,13 @@ namespace RavaisiDesktop
             foreach (Control control in TablesPanel.Controls)
            {
                 Button btn = ((Button)control);
-                btn.BackColor = Color.Green;
+                 btn.BackColor = Color.DarkGray;
                 foreach (Order order in orders)
                 {                   
                     if (btn.Text == order.table)
                     {
                         if (!order.loaded)
-                            btn.BackColor = Color.Red;                                   
+                            btn.BackColor = Color.LightGray;                                   
                     }
                 }
             }
@@ -391,6 +396,16 @@ namespace RavaisiDesktop
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void minimizeBtn_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void closeFormButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

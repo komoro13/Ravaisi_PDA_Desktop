@@ -52,16 +52,18 @@
             this.closeOrderBtn = new System.Windows.Forms.Button();
             this.tableLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ordersGridView)).BeginInit();
             this.OrderPanel.SuspendLayout();
             this.ordersTabsControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // getOrdersBtn
             // 
-            this.getOrdersBtn.Location = new System.Drawing.Point(17, 182);
+            this.getOrdersBtn.Location = new System.Drawing.Point(11, 147);
             this.getOrdersBtn.Name = "getOrdersBtn";
             this.getOrdersBtn.Size = new System.Drawing.Size(151, 45);
             this.getOrdersBtn.TabIndex = 1;
@@ -84,6 +86,7 @@
             // ipLabel
             // 
             this.ipLabel.AutoSize = true;
+            this.ipLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.ipLabel.Location = new System.Drawing.Point(471, 27);
             this.ipLabel.Name = "ipLabel";
             this.ipLabel.Size = new System.Drawing.Size(76, 16);
@@ -93,6 +96,7 @@
             // openOrdersRdBtn
             // 
             this.openOrdersRdBtn.AutoSize = true;
+            this.openOrdersRdBtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.openOrdersRdBtn.Location = new System.Drawing.Point(17, 23);
             this.openOrdersRdBtn.Name = "openOrdersRdBtn";
             this.openOrdersRdBtn.Size = new System.Drawing.Size(161, 20);
@@ -105,6 +109,7 @@
             // newOrders
             // 
             this.newOrders.AutoSize = true;
+            this.newOrders.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.newOrders.Location = new System.Drawing.Point(17, 75);
             this.newOrders.Name = "newOrders";
             this.newOrders.Size = new System.Drawing.Size(172, 20);
@@ -117,6 +122,7 @@
             // allOrdersRdBtn
             // 
             this.allOrdersRdBtn.AutoSize = true;
+            this.allOrdersRdBtn.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.allOrdersRdBtn.Location = new System.Drawing.Point(17, 49);
             this.allOrdersRdBtn.Name = "allOrdersRdBtn";
             this.allOrdersRdBtn.Size = new System.Drawing.Size(153, 20);
@@ -129,6 +135,7 @@
             // autoPrintChBox
             // 
             this.autoPrintChBox.AutoSize = true;
+            this.autoPrintChBox.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.autoPrintChBox.Location = new System.Drawing.Point(474, 60);
             this.autoPrintChBox.Name = "autoPrintChBox";
             this.autoPrintChBox.Size = new System.Drawing.Size(152, 20);
@@ -140,19 +147,20 @@
             // TablesPanel
             // 
             this.TablesPanel.AutoScroll = true;
-            this.TablesPanel.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.TablesPanel.Location = new System.Drawing.Point(7, 49);
+            this.TablesPanel.BackColor = System.Drawing.Color.Transparent;
+            this.TablesPanel.Location = new System.Drawing.Point(7, 166);
             this.TablesPanel.Name = "TablesPanel";
-            this.TablesPanel.Size = new System.Drawing.Size(1183, 1006);
+            this.TablesPanel.Size = new System.Drawing.Size(1183, 889);
             this.TablesPanel.TabIndex = 10;
             this.TablesPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.TablesPanel_Paint);
             // 
             // productFormBtn
             // 
-            this.productFormBtn.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.productFormBtn.BackColor = System.Drawing.Color.Transparent;
             this.productFormBtn.FlatAppearance.BorderSize = 0;
             this.productFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.productFormBtn.Location = new System.Drawing.Point(38, 9);
+            this.productFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.productFormBtn.Location = new System.Drawing.Point(65, 9);
             this.productFormBtn.Margin = new System.Windows.Forms.Padding(0);
             this.productFormBtn.Name = "productFormBtn";
             this.productFormBtn.Size = new System.Drawing.Size(120, 35);
@@ -162,53 +170,59 @@
             // 
             // settingsFormBtn
             // 
+            this.settingsFormBtn.BackColor = System.Drawing.Color.Transparent;
             this.settingsFormBtn.FlatAppearance.BorderSize = 0;
             this.settingsFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsFormBtn.Location = new System.Drawing.Point(158, 9);
+            this.settingsFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.settingsFormBtn.Location = new System.Drawing.Point(185, 9);
             this.settingsFormBtn.Margin = new System.Windows.Forms.Padding(0);
             this.settingsFormBtn.Name = "settingsFormBtn";
             this.settingsFormBtn.Size = new System.Drawing.Size(120, 35);
             this.settingsFormBtn.TabIndex = 13;
             this.settingsFormBtn.Text = "Ρυθμισεις";
-            this.settingsFormBtn.UseVisualStyleBackColor = true;
+            this.settingsFormBtn.UseVisualStyleBackColor = false;
             // 
             // historyFormBtn
             // 
+            this.historyFormBtn.BackColor = System.Drawing.Color.Transparent;
             this.historyFormBtn.FlatAppearance.BorderSize = 0;
             this.historyFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.historyFormBtn.Location = new System.Drawing.Point(278, 9);
+            this.historyFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.historyFormBtn.Location = new System.Drawing.Point(305, 9);
             this.historyFormBtn.Margin = new System.Windows.Forms.Padding(0);
             this.historyFormBtn.Name = "historyFormBtn";
             this.historyFormBtn.Size = new System.Drawing.Size(120, 35);
             this.historyFormBtn.TabIndex = 14;
             this.historyFormBtn.Text = "Ιστορικο";
-            this.historyFormBtn.UseVisualStyleBackColor = true;
+            this.historyFormBtn.UseVisualStyleBackColor = false;
             // 
             // helpFormBtn
             // 
+            this.helpFormBtn.BackColor = System.Drawing.Color.Transparent;
             this.helpFormBtn.FlatAppearance.BorderSize = 0;
             this.helpFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.helpFormBtn.Location = new System.Drawing.Point(398, 9);
+            this.helpFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.helpFormBtn.Location = new System.Drawing.Point(425, 9);
             this.helpFormBtn.Margin = new System.Windows.Forms.Padding(0);
             this.helpFormBtn.Name = "helpFormBtn";
             this.helpFormBtn.Size = new System.Drawing.Size(120, 35);
             this.helpFormBtn.TabIndex = 15;
             this.helpFormBtn.Text = "Βοηθεια";
-            this.helpFormBtn.UseVisualStyleBackColor = true;
+            this.helpFormBtn.UseVisualStyleBackColor = false;
             this.helpFormBtn.Click += new System.EventHandler(this.button4_Click);
             // 
             // OrderPanel
             // 
-            this.OrderPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.OrderPanel.BackColor = System.Drawing.Color.Transparent;
             this.OrderPanel.Controls.Add(this.previewBtn);
             this.OrderPanel.Controls.Add(this.orderIdLabel);
             this.OrderPanel.Controls.Add(this.ordersTabsControl);
             this.OrderPanel.Controls.Add(this.printBtn);
             this.OrderPanel.Controls.Add(this.closeOrderBtn);
             this.OrderPanel.Controls.Add(this.tableLabel);
-            this.OrderPanel.Location = new System.Drawing.Point(1196, 49);
+            this.OrderPanel.Location = new System.Drawing.Point(1196, 63);
             this.OrderPanel.Name = "OrderPanel";
-            this.OrderPanel.Size = new System.Drawing.Size(712, 753);
+            this.OrderPanel.Size = new System.Drawing.Size(712, 739);
             this.OrderPanel.TabIndex = 16;
             this.OrderPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrderPanel_Paint);
             // 
@@ -225,9 +239,11 @@
             // orderIdLabel
             // 
             this.orderIdLabel.AutoSize = true;
-            this.orderIdLabel.Location = new System.Drawing.Point(157, 60);
+            this.orderIdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.8F);
+            this.orderIdLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.orderIdLabel.Location = new System.Drawing.Point(191, 43);
             this.orderIdLabel.Name = "orderIdLabel";
-            this.orderIdLabel.Size = new System.Drawing.Size(58, 16);
+            this.orderIdLabel.Size = new System.Drawing.Size(124, 32);
             this.orderIdLabel.TabIndex = 12;
             this.orderIdLabel.Text = "Order id:";
             // 
@@ -267,14 +283,14 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(483, 466);
+            this.tabPage2.Size = new System.Drawing.Size(707, 539);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // printBtn
             // 
-            this.printBtn.Location = new System.Drawing.Point(11, 690);
+            this.printBtn.Location = new System.Drawing.Point(7, 690);
             this.printBtn.Name = "printBtn";
             this.printBtn.Size = new System.Drawing.Size(180, 38);
             this.printBtn.TabIndex = 10;
@@ -295,25 +311,38 @@
             // tableLabel
             // 
             this.tableLabel.AutoSize = true;
-            this.tableLabel.Location = new System.Drawing.Point(8, 60);
+            this.tableLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.8F);
+            this.tableLabel.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tableLabel.Location = new System.Drawing.Point(3, 43);
             this.tableLabel.Name = "tableLabel";
-            this.tableLabel.Size = new System.Drawing.Size(49, 16);
+            this.tableLabel.Size = new System.Drawing.Size(101, 32);
             this.tableLabel.TabIndex = 8;
             this.tableLabel.Text = "Table: ";
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.openOrdersRdBtn);
             this.panel1.Controls.Add(this.allOrdersRdBtn);
             this.panel1.Controls.Add(this.newOrders);
             this.panel1.Controls.Add(this.ipLabel);
             this.panel1.Controls.Add(this.getOrdersBtn);
             this.panel1.Controls.Add(this.autoPrintChBox);
-            this.panel1.Location = new System.Drawing.Point(1196, 808);
+            this.panel1.Location = new System.Drawing.Point(1203, 808);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(712, 247);
+            this.panel1.Size = new System.Drawing.Size(712, 235);
             this.panel1.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(7, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(55, 55);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabStop = false;
             // 
             // TablesForm
             // 
@@ -321,8 +350,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1924, 1055);
+            this.ControlBox = false;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.OrderPanel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ordersGridView);
@@ -334,8 +367,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "TablesForm";
+            this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Ραβαΐσι PDA";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.TablesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ordersGridView)).EndInit();
@@ -346,6 +379,7 @@
             this.tabPage1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -374,6 +408,7 @@
         private System.Windows.Forms.Button closeOrderBtn;
         public System.Windows.Forms.Label tableLabel;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
