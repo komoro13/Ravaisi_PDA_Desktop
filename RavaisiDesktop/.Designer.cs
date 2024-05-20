@@ -37,10 +37,6 @@
             this.allOrdersRdBtn = new System.Windows.Forms.RadioButton();
             this.autoPrintChBox = new System.Windows.Forms.CheckBox();
             this.TablesPanel = new System.Windows.Forms.Panel();
-            this.productFormBtn = new System.Windows.Forms.Button();
-            this.settingsFormBtn = new System.Windows.Forms.Button();
-            this.historyFormBtn = new System.Windows.Forms.Button();
-            this.helpFormBtn = new System.Windows.Forms.Button();
             this.OrderPanel = new System.Windows.Forms.Panel();
             this.previewBtn = new System.Windows.Forms.Button();
             this.orderIdLabel = new System.Windows.Forms.Label();
@@ -52,12 +48,19 @@
             this.closeOrderBtn = new System.Windows.Forms.Button();
             this.tableLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.navPanel = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tablesFormBtn = new System.Windows.Forms.Button();
+            this.productFormBtn = new System.Windows.Forms.Button();
+            this.settingsFormBtn = new System.Windows.Forms.Button();
+            this.helpFormBtn = new System.Windows.Forms.Button();
+            this.historyFormBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ordersGridView)).BeginInit();
             this.OrderPanel.SuspendLayout();
             this.ordersTabsControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.navPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,7 +145,6 @@
             this.autoPrintChBox.TabIndex = 9;
             this.autoPrintChBox.Text = "Αυτοματη Εκτυπωση";
             this.autoPrintChBox.UseVisualStyleBackColor = true;
-            this.autoPrintChBox.CheckedChanged += new System.EventHandler(this.autoPrintChBox_CheckedChanged);
             // 
             // TablesPanel
             // 
@@ -153,63 +155,6 @@
             this.TablesPanel.Size = new System.Drawing.Size(1183, 889);
             this.TablesPanel.TabIndex = 10;
             this.TablesPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.TablesPanel_Paint);
-            // 
-            // productFormBtn
-            // 
-            this.productFormBtn.BackColor = System.Drawing.Color.Transparent;
-            this.productFormBtn.FlatAppearance.BorderSize = 0;
-            this.productFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.productFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.productFormBtn.Location = new System.Drawing.Point(65, 9);
-            this.productFormBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.productFormBtn.Name = "productFormBtn";
-            this.productFormBtn.Size = new System.Drawing.Size(120, 35);
-            this.productFormBtn.TabIndex = 12;
-            this.productFormBtn.Text = "Προιοντα";
-            this.productFormBtn.UseVisualStyleBackColor = false;
-            // 
-            // settingsFormBtn
-            // 
-            this.settingsFormBtn.BackColor = System.Drawing.Color.Transparent;
-            this.settingsFormBtn.FlatAppearance.BorderSize = 0;
-            this.settingsFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.settingsFormBtn.Location = new System.Drawing.Point(185, 9);
-            this.settingsFormBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.settingsFormBtn.Name = "settingsFormBtn";
-            this.settingsFormBtn.Size = new System.Drawing.Size(120, 35);
-            this.settingsFormBtn.TabIndex = 13;
-            this.settingsFormBtn.Text = "Ρυθμισεις";
-            this.settingsFormBtn.UseVisualStyleBackColor = false;
-            // 
-            // historyFormBtn
-            // 
-            this.historyFormBtn.BackColor = System.Drawing.Color.Transparent;
-            this.historyFormBtn.FlatAppearance.BorderSize = 0;
-            this.historyFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.historyFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.historyFormBtn.Location = new System.Drawing.Point(305, 9);
-            this.historyFormBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.historyFormBtn.Name = "historyFormBtn";
-            this.historyFormBtn.Size = new System.Drawing.Size(120, 35);
-            this.historyFormBtn.TabIndex = 14;
-            this.historyFormBtn.Text = "Ιστορικο";
-            this.historyFormBtn.UseVisualStyleBackColor = false;
-            // 
-            // helpFormBtn
-            // 
-            this.helpFormBtn.BackColor = System.Drawing.Color.Transparent;
-            this.helpFormBtn.FlatAppearance.BorderSize = 0;
-            this.helpFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.helpFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.helpFormBtn.Location = new System.Drawing.Point(425, 9);
-            this.helpFormBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.helpFormBtn.Name = "helpFormBtn";
-            this.helpFormBtn.Size = new System.Drawing.Size(120, 35);
-            this.helpFormBtn.TabIndex = 15;
-            this.helpFormBtn.Text = "Βοηθεια";
-            this.helpFormBtn.UseVisualStyleBackColor = false;
-            this.helpFormBtn.Click += new System.EventHandler(this.button4_Click);
             // 
             // OrderPanel
             // 
@@ -224,7 +169,6 @@
             this.OrderPanel.Name = "OrderPanel";
             this.OrderPanel.Size = new System.Drawing.Size(712, 739);
             this.OrderPanel.TabIndex = 16;
-            this.OrderPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OrderPanel_Paint);
             // 
             // previewBtn
             // 
@@ -333,16 +277,105 @@
             this.panel1.Size = new System.Drawing.Size(712, 235);
             this.panel1.TabIndex = 0;
             // 
+            // navPanel
+            // 
+            this.navPanel.BackColor = System.Drawing.Color.Transparent;
+            this.navPanel.Controls.Add(this.pictureBox1);
+            this.navPanel.Controls.Add(this.tablesFormBtn);
+            this.navPanel.Controls.Add(this.productFormBtn);
+            this.navPanel.Controls.Add(this.settingsFormBtn);
+            this.navPanel.Controls.Add(this.helpFormBtn);
+            this.navPanel.Controls.Add(this.historyFormBtn);
+            this.navPanel.Location = new System.Drawing.Point(0, 0);
+            this.navPanel.Name = "navPanel";
+            this.navPanel.Size = new System.Drawing.Size(705, 55);
+            this.navPanel.TabIndex = 35;
+            this.navPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.navPanel_Paint);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(7, 1);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(55, 55);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 17;
+            this.pictureBox1.TabIndex = 32;
             this.pictureBox1.TabStop = false;
+            // 
+            // tablesFormBtn
+            // 
+            this.tablesFormBtn.BackColor = System.Drawing.Color.Transparent;
+            this.tablesFormBtn.FlatAppearance.BorderSize = 0;
+            this.tablesFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.tablesFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.tablesFormBtn.Location = new System.Drawing.Point(56, 10);
+            this.tablesFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.tablesFormBtn.Name = "tablesFormBtn";
+            this.tablesFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.tablesFormBtn.TabIndex = 33;
+            this.tablesFormBtn.Text = "Τραπεζια";
+            this.tablesFormBtn.UseVisualStyleBackColor = false;
+            // 
+            // productFormBtn
+            // 
+            this.productFormBtn.BackColor = System.Drawing.Color.Transparent;
+            this.productFormBtn.FlatAppearance.BorderSize = 0;
+            this.productFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.productFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.productFormBtn.Location = new System.Drawing.Point(169, 10);
+            this.productFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.productFormBtn.Name = "productFormBtn";
+            this.productFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.productFormBtn.TabIndex = 28;
+            this.productFormBtn.Text = "Προιοντα";
+            this.productFormBtn.UseVisualStyleBackColor = false;
+            this.productFormBtn.Click += new System.EventHandler(this.productsFormBtn_Click);
+            // 
+            // settingsFormBtn
+            // 
+            this.settingsFormBtn.BackColor = System.Drawing.Color.Transparent;
+            this.settingsFormBtn.FlatAppearance.BorderSize = 0;
+            this.settingsFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.settingsFormBtn.Location = new System.Drawing.Point(289, 10);
+            this.settingsFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.settingsFormBtn.Name = "settingsFormBtn";
+            this.settingsFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.settingsFormBtn.TabIndex = 29;
+            this.settingsFormBtn.Text = "Ρυθμισεις";
+            this.settingsFormBtn.UseVisualStyleBackColor = false;
+            this.settingsFormBtn.Click += new System.EventHandler(this.settingsFormBtn_Click);
+            // 
+            // helpFormBtn
+            // 
+            this.helpFormBtn.BackColor = System.Drawing.Color.Transparent;
+            this.helpFormBtn.FlatAppearance.BorderSize = 0;
+            this.helpFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.helpFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.helpFormBtn.Location = new System.Drawing.Point(529, 10);
+            this.helpFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.helpFormBtn.Name = "helpFormBtn";
+            this.helpFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.helpFormBtn.TabIndex = 31;
+            this.helpFormBtn.Text = "Βοηθεια";
+            this.helpFormBtn.UseVisualStyleBackColor = false;
+            this.helpFormBtn.Click += new System.EventHandler(this.helpFormBtn_Click);
+            // 
+            // historyFormBtn
+            // 
+            this.historyFormBtn.BackColor = System.Drawing.Color.Transparent;
+            this.historyFormBtn.FlatAppearance.BorderSize = 0;
+            this.historyFormBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.historyFormBtn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.historyFormBtn.Location = new System.Drawing.Point(409, 10);
+            this.historyFormBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.historyFormBtn.Name = "historyFormBtn";
+            this.historyFormBtn.Size = new System.Drawing.Size(120, 35);
+            this.historyFormBtn.TabIndex = 30;
+            this.historyFormBtn.Text = "Ιστορικο";
+            this.historyFormBtn.UseVisualStyleBackColor = false;
+            this.historyFormBtn.Click += new System.EventHandler(this.historyFormBtn_Click);
             // 
             // TablesForm
             // 
@@ -355,14 +388,10 @@
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1924, 1055);
             this.ControlBox = false;
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.navPanel);
             this.Controls.Add(this.OrderPanel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ordersGridView);
-            this.Controls.Add(this.helpFormBtn);
-            this.Controls.Add(this.historyFormBtn);
-            this.Controls.Add(this.settingsFormBtn);
-            this.Controls.Add(this.productFormBtn);
             this.Controls.Add(this.TablesPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -379,6 +408,7 @@
             this.tabPage1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.navPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -393,10 +423,6 @@
         private System.Windows.Forms.RadioButton allOrdersRdBtn;
         private System.Windows.Forms.CheckBox autoPrintChBox;
         private System.Windows.Forms.Panel TablesPanel;
-        private System.Windows.Forms.Button productFormBtn;
-        private System.Windows.Forms.Button settingsFormBtn;
-        private System.Windows.Forms.Button historyFormBtn;
-        private System.Windows.Forms.Button helpFormBtn;
         private System.Windows.Forms.Panel OrderPanel;
         private System.Windows.Forms.Button previewBtn;
         private System.Windows.Forms.Label orderIdLabel;
@@ -408,7 +434,13 @@
         private System.Windows.Forms.Button closeOrderBtn;
         public System.Windows.Forms.Label tableLabel;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel navPanel;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button tablesFormBtn;
+        private System.Windows.Forms.Button productFormBtn;
+        private System.Windows.Forms.Button settingsFormBtn;
+        private System.Windows.Forms.Button helpFormBtn;
+        private System.Windows.Forms.Button historyFormBtn;
     }
 }
 

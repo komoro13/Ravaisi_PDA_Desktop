@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Net;
-using System.Resources;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using RavaisiDesktop.Properties;
 namespace RavaisiDesktop
 {
     public partial class TablesForm : Form
@@ -352,16 +350,7 @@ namespace RavaisiDesktop
                 showOrders();
             }
         }
-
-        private void autoPrintChBox_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TablesPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+ 
 
         private void printBtn_Click(object sender, EventArgs e)
         {
@@ -388,16 +377,7 @@ namespace RavaisiDesktop
             loadedOrder.closeOrder();
         }
 
-        private void OrderPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
+     
         private void minimizeBtn_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -406,6 +386,46 @@ namespace RavaisiDesktop
         private void closeFormButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+  
+
+        private void productsFormBtn_Click(object sender, EventArgs e)
+        {
+            ProductsForm productsForm = new ProductsForm();
+            productsForm.Show();
+            this.Close();
+        }
+
+        private void settingsFormBtn_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm();
+            settingsForm.Show();
+            this.Close();
+        }
+
+        private void historyFormBtn_Click(object sender, EventArgs e)
+        {
+            HistoryForm historyForm = new HistoryForm();
+            historyForm.Show();
+            this.Close();
+        }
+
+        private void helpFormBtn_Click(object sender, EventArgs e)
+        {
+            HelpForm helpForm = new HelpForm();
+            helpForm.Show();
+            this.Close();
+        }
+
+        private void TablesPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void navPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
